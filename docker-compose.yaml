@@ -2,8 +2,7 @@ version: '3.8'
 
 services:
   myapp:
-    build:
-      dockerfile: Dockerfile
+    build: .
     depends_on:
       - db
     environment:
