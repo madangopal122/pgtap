@@ -17,5 +17,8 @@ WORKDIR /pgtap
 # Copy the current directory contents into the container at /app
 COPY . /pgtap
 
+# Copy the init-db.sql script into the container
+COPY init-db.sql /docker-entrypoint-initdb.d/
+
 # Run a command to verify the container setup (optional)
 CMD ["/bin/bash"]

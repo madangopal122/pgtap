@@ -32,9 +32,8 @@ jobs:
     - name: Wait for services to be ready
       run: sleep 10  # Adjust sleep duration as needed to ensure services are ready
 
-    - name: Create pgTAP extension in PostgreSQL
-      run: |
-        docker-compose exec -T db psql -U myuser -d mydatabase -c "CREATE EXTENSION pgtap;"
+    - name: Run SQL script in PostgreSQL
+      run: docker-compose exec -T db psql -U myuser -d mydatabase -f /docker-entrypoint-initdb.d/init-db.sql
 
     - name: Run tests
       run: docker-compose run --rm --entrypoint='bash -c "cd /pgtap && PGPASSWORD=mypassword pg_prove --host db --username myuser --dbname mydatabase --ext .sql -r tests/"' myapp
