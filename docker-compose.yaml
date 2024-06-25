@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  myapp:
+    build:
+      dockerfile: Dockerfile
+    depends_on:
+      - db
+    environment:
+      POSTGRES_HOST: db
+      POSTGRES_DB: mydatabase
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+    volumes:
+      - .:/app
+    command: tail -f /dev/null
+
+
+  db:
+    image: mgs122/postgres-pgtap 
+    environment:
+      POSTGRES_DB: mydatabase
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
