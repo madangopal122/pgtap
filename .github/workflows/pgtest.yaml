@@ -34,7 +34,7 @@ jobs:
 
     - name: Create pgTAP extension in PostgreSQL
       run: |
-        docker-compose exec db psql -U myuser -d mydatabase -c "CREATE EXTENSION pgtap;"
+        docker-compose exec -T db psql -U myuser -d mydatabase -c "CREATE EXTENSION pgtap;"
 
     - name: Run tests
       run: docker-compose run --rm --entrypoint='bash -c "cd /pgtap && PGPASSWORD=mypassword pg_prove --host db --username myuser --dbname mydatabase --ext .sql -r tests/"' myapp
